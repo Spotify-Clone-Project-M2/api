@@ -1,19 +1,23 @@
 {
-  "name": "spotify",
+  "name": "spotify-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "npx tsc && node dist/index.js",
-    "dev": "nodemon --watch ./src ./src/index.ts"
+    "dev": "npm run swagger && nodemon --watch ./src ./src/index.ts",
+    "swagger": "node ./src/swagger.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3"
+    "http-errors": "~1.6.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
+    "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }
