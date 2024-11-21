@@ -1,18 +1,23 @@
 import express, { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 const createError = require("http-errors");
 const path = require("path");
 const dotenv = require("dotenv");
 
 const indexRouter = require("./routes/index");
 
+dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT;
+const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -29,13 +34,8 @@ app.use(function (err: any, req: Request, res: Response) {
   res.render("error");
 });
 
-app
-  .listen(PORT, () => {
-    console.log("Server running at PORT: ", PORT);
-  })
-  .on("error", (error) => {
-    // gracefully handle error
-    throw new Error(error.message);
-  });
+app.listen(PORT, () => {
+  console.log("Server running at PORT: ", PORT);
+});
 
 module.exports = app;
