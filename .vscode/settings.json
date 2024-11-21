@@ -25,4 +25,23 @@
     "prettier.useTabs": true,
     "prettier.endOfLine": "lf",
     "prettier.bracketSpacing": true,
+    "conventionalCommits.scopes": [
+        "controllers",
+        "middlewares",
+        "models",
+        "routes",
+        "utils",
+        "services",
+        "config",
+        "types",
+        "interfaces",
+        "enums",
+        "schemas",
+        "db",
+        "scripts",
+        "public",
+        "views",
+        "tests",
+        "docs"
+    ]
 }
