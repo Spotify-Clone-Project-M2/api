@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 const createError = require('http-errors');
 const path = require('path');
+import logger from './logger';
 
 const indexRouter = require('./routes/index');
 const dotenv = require('dotenv');
@@ -30,6 +31,7 @@ app.use(function (err: any, req: Request, res: Response) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    logger.error(err);
 
     // render the error page
     res.status(err.status || 500);
@@ -48,15 +50,15 @@ app.use(
 );
 
 app.listen(PORT, () => {
-    console.log('Server is running on address: http://localhost:' + PORT);
-    console.log(
+    logger.info('Server is running on address: http://localhost:' + PORT);
+    logger.info(
         'API documentation is running on address: http://localhost:' +
             PORT +
             '/api-docs',
     );
 }).on('error', (error: any) => {
     // gracefully handle error
-    throw new Error(error.message);
+    logger.error(error);
 });
 
 export {};
