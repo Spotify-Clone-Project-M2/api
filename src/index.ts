@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 const createError = require("http-errors");
 const path = require("path");
+import logger from "./logger";
 const dotenv = require("dotenv");
 
 const indexRouter = require("./routes/index");
@@ -11,6 +12,10 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`);
+  next();
+});
 
 app.use("/", indexRouter);
 // catch 404 and forward to error handler
@@ -24,6 +29,7 @@ app.use(function (err: any, req: Request, res: Response) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
+  logger.error(err);
   // render the error page
   res.status(err.status || 500);
   res.render("error");
@@ -31,11 +37,10 @@ app.use(function (err: any, req: Request, res: Response) {
 
 app
   .listen(PORT, () => {
-    console.log("Server running at PORT: ", PORT);
+    logger.info(`Server running at PORT: ${PORT}`);
   })
   .on("error", (error) => {
-    // gracefully handle error
-    throw new Error(error.message);
+    logger.error(error);
   });
 
 module.exports = app;
