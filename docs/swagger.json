@@ -23,41 +23,7 @@
   "produces": [
     "application/json"
   ],
-  "paths": {
-    "/auth/": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "Endpoint to test auth route",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/successResponse.200"
-            }
-          },
-          "400": {
-            "schema": {
-              "$ref": "#/definitions/errorResponse.400"
-            },
-            "description": "Bad Request"
-          },
-          "401": {
-            "schema": {
-              "$ref": "#/definitions/errorResponse.401"
-            },
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    }
-  },
+  "paths": {},
   "definitions": {
     "successResponse.200": {
       "type": "object",

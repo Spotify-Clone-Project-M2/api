@@ -1,15 +1,18 @@
+const express = require('express');
 const authRoute = require('./auth.route');
 
-router.use(
-    '/auth',
-    authRoute,
-    /* 
-    #swagger.tags = ['Auth']
+const router = express.Router();
 
-    #swagger.security = [{
-        "apiKeyAuth": []
-    }] 
-    */
+router.use(
+  '/auth',
+  authRoute,
+  /* 
+  #swagger.tags = ['Auth']     
+
+  #swagger.security = [{         
+      "apiKeyAuth": []            
+  }] 
+  */
 );
 
 module.exports = router;
