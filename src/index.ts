@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+<<<<<<< HEAD
 import createError from 'http-errors';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -9,6 +10,18 @@ import indexRouter from './routes/index';
 import sessionMiddleware from './middlewares/session';
 import fileCacheMiddleware from './middlewares/fileCache';
 import cacheMiddleware from './middlewares/cache';
+=======
+const createError = require('http-errors');
+const path = require('path');
+import logger from './logger';
+
+const indexRouter = require('./routes/index');
+const dotenv = require('dotenv');
+const swaggerUIPath = require('swagger-ui-express');
+const swaggerjsonFilePath = require('../docs/swagger.json');
+
+const router = require('./routes/index.ts');
+>>>>>>> db28730 (feat: update index.ts)
 
 dotenv.config();
 import express, { Request, Response } from 'express';
@@ -46,6 +59,7 @@ app.use((err: any, req: Request, res: Response) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    logger.error(err);
 
     logger.error(err);
     // render the error page
@@ -65,4 +79,22 @@ app.use(
     swaggerUIPath.setup(swaggerjsonFilePath),
 );
 
+<<<<<<< HEAD
 export default app;
+=======
+app.listen(PORT, () => {
+    logger.info('Server is running on address: http://localhost:' + PORT);
+    logger.info(
+        'API documentation is running on address: http://localhost:' +
+            PORT +
+            '/api-docs',
+    );
+}).on('error', (error: any) => {
+    // gracefully handle error
+    logger.error(error);
+});
+
+export {};
+
+module.exports = app;
+>>>>>>> db28730 (feat: update index.ts)
