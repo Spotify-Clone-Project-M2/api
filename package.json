@@ -26,12 +26,13 @@
   ],
   "scripts": {
     "start": "npx tsc && node dist/index.js",
-    "dev": "nodemon --watch ./src ./src/index.ts",
+    "dev": "npm run swagger && nodemon --watch ./src ./src/index.ts",
+    "swagger": "node ./src/swagger.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -42,7 +43,10 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "http-errors": "~1.6.3"
+    "http-errors": "~1.6.3",
+    "nodemon": "^3.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
@@ -60,7 +64,13 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
+    "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "",
+  "license": "ISC"
 }
