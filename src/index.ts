@@ -18,24 +18,22 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use(
-  '/api-docs',
-  swaggerUIPath.serve,
-  swaggerUIPath.setup(swaggerjsonFilePath),
+    '/api-docs',
+    swaggerUIPath.serve,
+    swaggerUIPath.setup(swaggerjsonFilePath),
 );
 
-app
-  .listen(PORT, () => {
+app.listen(PORT, () => {
     console.log('Server is running on address: http://localhost:' + PORT);
     console.log(
-      'API documentation is running on address: http://localhost:' +
-        PORT +
-        '/api-docs',
+        'API documentation is running on address: http://localhost:' +
+            PORT +
+            '/api-docs',
     );
-  })
-  .on('error', (error: any) => {
+}).on('error', (error: any) => {
     // gracefully handle error
     throw new Error(error.message);
-  });
+});
 
 export {};
 

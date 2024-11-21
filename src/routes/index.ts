@@ -4,9 +4,9 @@ const authRoute = require('./auth.route');
 const router = express.Router();
 
 router.use(
-  '/auth',
-  authRoute,
-  /* 
+    '/auth',
+    authRoute,
+    /* 
   #swagger.tags = ['Auth']     
 
   #swagger.security = [{         

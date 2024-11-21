@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 
 router.get('/', function (req: Request, res: Response) {
-  /* 
+    /* 
     #swagger.tags = ['Auth']
     #swagger.description = 'Endpoint to test auth route'
     #swagger.responses[200]= {
@@ -16,7 +16,7 @@ router.get('/', function (req: Request, res: Response) {
     }
   */
 
-  res.send('respond with a resource');
+    res.send('respond with a resource');
 });
 
 module.exports = router;
