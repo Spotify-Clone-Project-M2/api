@@ -8,10 +8,57 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
   password String
+
+  PlaylistMusic PlaylistMusic[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Artiste {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  MusicAlbum MusicAlbum[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MusicAlbum {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  artisteId Int
+  artiste   Artiste @relation(fields: [artisteId], references: [id])
+  Track     Track[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Track {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  albumId Int
+  album   MusicAlbum @relation(fields: [albumId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlaylistMusic {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
