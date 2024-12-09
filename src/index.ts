@@ -1,14 +1,14 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
-const createError = require('http-errors');
-const path = require('path');
-
-const indexRouter = require('./routes/index');
-const dotenv = require('dotenv');
-const swaggerUIPath = require('swagger-ui-express');
-const swaggerjsonFilePath = require('../docs/swagger.json');
-
-const router = require('./routes/index.ts');
+import createError from 'http-errors';
+import path from 'path';
+import dotenv from 'dotenv';
+import swaggerUIPath from 'swagger-ui-express';
+import swaggerjsonFilePath from '../docs/swagger.json';
+import indexRouter from './routes/index';
+import sessionMiddleware from './middlewares/session';
+import fileCacheMiddleware from './middlewares/fileCache';
+import cacheMiddleware from './middlewares/cache';
 
 dotenv.config();
 
@@ -16,17 +16,22 @@ const app = express();
 const PORT = process.env.PORT;
 const prisma = new PrismaClient();
 
-app.use(router);
+app.use(sessionMiddleware);
+app.use(fileCacheMiddleware);
+app.use(cacheMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req: Request, res: Response, next: NextFunction) => {
     next(createError(404));
 });
 
 // error handler
-app.use(function (err: any, req: Request, res: Response) {
+app.use((err: any, req: Request, res: Response) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -40,25 +45,10 @@ app.listen(PORT, () => {
     console.log('Server running at PORT: ', PORT);
 });
 
-app.use('/', indexRouter);
 app.use(
     '/api-docs',
     swaggerUIPath.serve,
     swaggerUIPath.setup(swaggerjsonFilePath),
 );
 
-app.listen(PORT, () => {
-    console.log('Server is running on address: http://localhost:' + PORT);
-    console.log(
-        'API documentation is running on address: http://localhost:' +
-            PORT +
-            '/api-docs',
-    );
-}).on('error', (error: any) => {
-    // gracefully handle error
-    throw new Error(error.message);
-});
-
-export {};
-
-module.exports = app;
+export default app;
