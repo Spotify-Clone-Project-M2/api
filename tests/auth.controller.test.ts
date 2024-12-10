@@ -2,9 +2,17 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { register, login } from './auth.controller';
+import { register, login } from '../src/controllers/auth.controller';
 
-jest.mock('@prisma/client');
+jest.mock('@prisma/client', () => {
+    const mPrismaClient = {
+        user: {
+            create: jest.fn(),
+            findUnique: jest.fn(),
+        },
+    };
+    return { PrismaClient: jest.fn(() => mPrismaClient) };
+});
 jest.mock('bcrypt');
 jest.mock('jsonwebtoken');
 
