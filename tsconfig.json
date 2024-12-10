@@ -9,7 +9,7 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "types": ["node", "dotenv", "ioredis"]
+    "types": ["node", "jest", "dotenv", "ioredis"]
   },
   "include": [
     "src/**/*.ts",
