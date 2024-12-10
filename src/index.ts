@@ -40,7 +40,6 @@ app.use((err: any, req: Request, res: Response) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    logger.error(err);
 
     logger.error(err);
     // render the error page
