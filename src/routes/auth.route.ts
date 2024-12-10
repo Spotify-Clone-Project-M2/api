@@ -5,6 +5,7 @@ router.get('/', function (req: Request, res: Response) {
     /* 
     #swagger.tags = ['Auth']
     #swagger.description = 'Endpoint to test auth route'
+    #swagger.path = '/auth'
     #swagger.responses[200]= {
           schema: { $ref: '#/definitions/successResponse.200' }
       }  

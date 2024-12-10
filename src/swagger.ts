@@ -1,4 +1,6 @@
 const generateSwagger = require('swagger-autogen')();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const doc = {
     info: {
@@ -6,7 +8,7 @@ const doc = {
         title: 'Spotify API',
         description: 'Spotify API Documentation',
     },
-    host: 'localhost:3000',
+    host: 'localhost:' + process.env.PORT,
     basePath: '/',
     schemes: ['http'],
     consumes: ['application/json'],
@@ -15,6 +17,10 @@ const doc = {
         {
             name: 'Auth',
             description: 'auth related apis',
+        },
+        {
+            name: 'Track',
+            description: 'track related apis',
         },
     ],
     securityDefinitions: {},
@@ -46,10 +52,27 @@ const doc = {
             message:
                 'An unexpected error occurred on the server. Please try again later.',
         },
+
+        // files
+        file: {
+            type: 'object',
+            properties: {
+                file: {
+                    type: 'file',
+                    description: 'Fichier à uploader',
+                    in: 'formData',
+                },
+            },
+            required: ['file'],
+        },
     },
 };
 
 const outputFile = '../docs/swagger.json';
-const routes = ['./src/routes/index.ts'];
+const routes = [
+    './routes/index.ts',
+    './routes/auth.route.ts',
+    './routes/track.route.ts',
+];
 
 generateSwagger(outputFile, routes, doc);
