@@ -18,8 +18,12 @@ const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 app.use(sessionMiddleware);
-app.use(fileCacheMiddleware);
-app.use(cacheMiddleware);
+
+if (process.env.INSTALL_REDIS === 'true') {
+    app.use(fileCacheMiddleware);
+    app.use(cacheMiddleware);
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
