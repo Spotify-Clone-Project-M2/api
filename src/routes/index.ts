@@ -4,6 +4,7 @@ import authRouter from './auth.route';
 import artistRouter from './artist.route';
 import albumRouter from './album.route';
 import trackRouter from './track.route';
+import playlistRouter from './playlist.route';
 
 const router = express.Router();
 
@@ -23,6 +24,19 @@ router.use('/auth', authRouter);
 
 /**
  * @swagger
+ * /artist:
+ *   get:
+ *     tags:
+ *       - Artist
+ *     summary: Get artist resource
+ *     responses:
+ *       200:
+ *         description: Artist resource
+ */
+router.use('/artist', artistRouter);
+
+/**
+ * @swagger
  * /artists:
  *   get:
  *     tags:
@@ -35,5 +49,18 @@ router.use('/auth', authRouter);
 router.use('/artists', artistRouter);
 router.use('/album', albumRouter);
 router.use('/track', trackRouter);
+
+/**
+ * @swagger
+ * /playlist-music:
+ *   get:
+ *     tags:
+ *       - PlaylistMusic
+ *     summary: Get playlist music resource
+ *     responses:
+ *       200:
+ *         description: Playlist music resource
+ */
+router.use('/playlist', playlistRouter);
 
 export default router;
