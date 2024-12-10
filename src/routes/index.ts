@@ -8,7 +8,6 @@ router.use(
     authRoute,
     /* 
   #swagger.tags = ['Auth']     
-
   #swagger.security = [{         
       "apiKeyAuth": []            
   }] 

@@ -13,7 +13,7 @@ import cacheMiddleware from './middlewares/cache';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 app.use(sessionMiddleware);
@@ -36,9 +36,12 @@ app.use((err: any, req: Request, res: Response) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+    // log the error
+    console.error(err);
+
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.json({ error: err.message });
 });
 
 app.listen(PORT, () => {
