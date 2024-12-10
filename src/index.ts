@@ -9,6 +9,7 @@ import indexRouter from './routes/index';
 import sessionMiddleware from './middlewares/session';
 import fileCacheMiddleware from './middlewares/fileCache';
 import cacheMiddleware from './middlewares/cache';
+import logger from './logger';
 
 dotenv.config();
 
@@ -22,6 +23,10 @@ app.use(cacheMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    logger.info(`${req.method} ${req.url}`);
+    next();
+});
 
 app.use('/', indexRouter);
 
@@ -36,16 +41,16 @@ app.use((err: any, req: Request, res: Response) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // log the error
-    console.error(err);
-
+    logger.error(err);
     // render the error page
     res.status(err.status || 500);
     res.json({ error: err.message });
 });
 
 app.listen(PORT, () => {
-    console.log('Server running at PORT: ', PORT);
+    logger.info(`Server running at PORT: ${PORT}`);
+}).on('error', (error) => {
+    logger.error(error);
 });
 
 app.use(
