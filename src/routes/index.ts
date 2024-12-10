@@ -1,12 +1,15 @@
+// src/routes/index.ts
 import express from 'express';
-import authRoute from './auth.route';
-import artistRoute from './artist.route';
-import albumRoute from './album.route';
-import userRoute from './user.route';
-import playlistRoute from './playlist.route';
+import authRouter from './auth.route';
+import artistRouter from './artist.route';
+import albumRouter from './album.route';
+import trackRouter from './track.route';
+import playlistRouter from './playlist.route';
+import userRouter from './user.route';
 
 const router = express.Router();
 
+// Documentation Swagger et routes
 /**
  * @swagger
  * /auth:
@@ -18,7 +21,7 @@ const router = express.Router();
  *       200:
  *         description: Auth resource
  */
-router.use('/auth', authRoute);
+router.use('/auth', authRouter);
 
 /**
  * @swagger
@@ -31,20 +34,22 @@ router.use('/auth', authRoute);
  *       200:
  *         description: Artist resource
  */
-router.use('/artist', artistRoute);
+router.use('/artist', artistRouter);
 
 /**
  * @swagger
- * /album:
+ * /artists:
  *   get:
  *     tags:
- *       - Album
- *     summary: Get album resource
+ *       - Artists
+ *     summary: Get artists resource
  *     responses:
  *       200:
- *         description: Album resource
+ *         description: Artists resource
  */
-router.use('/album', albumRoute);
+router.use('/artists', artistRouter);
+router.use('/album', albumRouter);
+router.use('/track', trackRouter);
 
 /**
  * @swagger
@@ -57,7 +62,7 @@ router.use('/album', albumRoute);
  *       200:
  *         description: User resource
  */
-router.use('/users', userRoute);
+router.use('/users', userRouter);
 /**
  * @swagger
  * /playlist-music:
@@ -69,6 +74,6 @@ router.use('/users', userRoute);
  *       200:
  *         description: Playlist music resource
  */
-router.use('/playlist', playlistRoute);
+router.use('/playlist', playlistRouter);
 
 export default router;
