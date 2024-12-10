@@ -37,36 +37,11 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 
-// catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: NextFunction) => {
-    next(createError(404));
-});
-
-// error handler
-app.use((err: any, req: Request, res: Response) => {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    logger.error(err);
-    // render the error page
-    res.status(err.status || 500);
-    res.json({ error: err.message });
-});
-
-app.listen(PORT, () => {
-    logger.info(`Server running at PORT: ${PORT}`);
-}).on('error', (error) => {
-    logger.error(error);
-});
-
 app.use(
     '/api-docs',
     swaggerUIPath.serve,
     swaggerUIPath.setup(swaggerjsonFilePath),
 );
-
-app.use('/', indexRouter);
 
 app.listen(PORT, () => {
     console.log('Server is running on address: http://localhost:' + PORT);

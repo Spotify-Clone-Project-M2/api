@@ -1,11 +1,13 @@
-const express = require('express');
-const authRoute = require('./auth.route');
-const trackRoute = require('./track.route');
-import artistRoute from './artist.route';
-import albumRoute from './album.route';
+// src/routes/index.ts
+import express from 'express';
+import authRouter from './auth.route';
+import artistRouter from './artist.route';
+import albumRouter from './album.route';
+import trackRouter from './track.route';
 
 const router = express.Router();
 
+// Documentation Swagger et routes
 /**
  * @swagger
  * /auth:
@@ -17,32 +19,21 @@ const router = express.Router();
  *       200:
  *         description: Auth resource
  */
-router.use('/auth', authRoute);
-
-router.use(
-    '/artists',
-    artistRoute,
-    /* 
-  #swagger.tags = ['Artists']     
-  #swagger.security = [{         
-      "apiKeyAuth": []            
-  }] 
-  */
-);
+router.use('/auth', authRouter);
 
 /**
  * @swagger
- * /album:
+ * /artists:
  *   get:
  *     tags:
- *       - Album
- *     summary: Get album resource
+ *       - Artists
+ *     summary: Get artists resource
  *     responses:
  *       200:
- *         description: Album resource
+ *         description: Artists resource
  */
-router.use('/album', albumRoute);
-
-router.use('/track', trackRoute);
+router.use('/artists', artistRouter);
+router.use('/album', albumRouter);
+router.use('/track', trackRouter);
 
 export default router;

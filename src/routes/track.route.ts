@@ -25,4 +25,4 @@ router.post(
     trackController.createTrack,
 );
 
-module.exports = router;
+export default router;
