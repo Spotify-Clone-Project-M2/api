@@ -5,6 +5,7 @@ import artistRouter from './artist.route';
 import albumRouter from './album.route';
 import trackRouter from './track.route';
 import playlistRouter from './playlist.route';
+import userRouter from './user.route';
 
 const router = express.Router();
 
@@ -50,6 +51,18 @@ router.use('/artists', artistRouter);
 router.use('/album', albumRouter);
 router.use('/track', trackRouter);
 
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get user resource
+ *     responses:
+ *       200:
+ *         description: User resource
+ */
+router.use('/users', userRouter);
 /**
  * @swagger
  * /playlist-music:
