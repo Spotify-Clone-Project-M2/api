@@ -3,6 +3,7 @@ import authRoute from './auth.route';
 import artistRoute from './artist.route';
 import albumRoute from './album.route';
 import userRoute from './user.route';
+import playlistRoute from './playlist.route';
 
 const router = express.Router();
 
@@ -19,16 +20,18 @@ const router = express.Router();
  */
 router.use('/auth', authRoute);
 
-router.use(
-    '/artists',
-    artistRoute,
-    /* 
-  #swagger.tags = ['Artists']     
-  #swagger.security = [{         
-      "apiKeyAuth": []            
-  }] 
-  */
-);
+/**
+ * @swagger
+ * /artist:
+ *   get:
+ *     tags:
+ *       - Artist
+ *     summary: Get artist resource
+ *     responses:
+ *       200:
+ *         description: Artist resource
+ */
+router.use('/artist', artistRoute);
 
 /**
  * @swagger
@@ -55,5 +58,17 @@ router.use('/album', albumRoute);
  *         description: User resource
  */
 router.use('/users', userRoute);
+/**
+ * @swagger
+ * /playlist-music:
+ *   get:
+ *     tags:
+ *       - PlaylistMusic
+ *     summary: Get playlist music resource
+ *     responses:
+ *       200:
+ *         description: Playlist music resource
+ */
+router.use('/playlist', playlistRoute);
 
 export default router;
