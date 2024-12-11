@@ -1,15 +1,12 @@
-// src/routes/index.ts
 import express from 'express';
-import authRouter from './auth.route';
-import artistRouter from './artist.route';
-import albumRouter from './album.route';
-import trackRouter from './track.route';
-import playlistRouter from './playlist.route';
-import userRouter from './user.route';
+import authRoute from './auth.route';
+import artistRoute from './artist.route';
+import albumRoute from './album.route';
+import playlistMusicRoute from './playlist.route';
+import artistGroupRoute from './artistGroup.route';
 
 const router = express.Router();
 
-// Documentation Swagger et routes
 /**
  * @swagger
  * /auth:
@@ -21,20 +18,7 @@ const router = express.Router();
  *       200:
  *         description: Auth resource
  */
-router.use('/auth', authRouter);
-
-/**
- * @swagger
- * /artist:
- *   get:
- *     tags:
- *       - Artist
- *     summary: Get artist resource
- *     responses:
- *       200:
- *         description: Artist resource
- */
-router.use('/artist', artistRouter);
+router.use('/auth', authRoute);
 
 /**
  * @swagger
@@ -47,22 +31,21 @@ router.use('/artist', artistRouter);
  *       200:
  *         description: Artists resource
  */
-router.use('/artists', artistRouter);
-router.use('/album', albumRouter);
-router.use('/track', trackRouter);
+router.use('/artists', artistRoute);
 
 /**
  * @swagger
- * /users:
+ * /album:
  *   get:
  *     tags:
- *       - User
- *     summary: Get user resource
+ *       - Album
+ *     summary: Get album resource
  *     responses:
  *       200:
- *         description: User resource
+ *         description: Album resource
  */
-router.use('/users', userRouter);
+router.use('/album', albumRoute);
+
 /**
  * @swagger
  * /playlist-music:
@@ -74,6 +57,19 @@ router.use('/users', userRouter);
  *       200:
  *         description: Playlist music resource
  */
-router.use('/playlist', playlistRouter);
+router.use('/playlist-music', playlistMusicRoute);
+
+/**
+ * @swagger
+ * /artist-groups:
+ *   get:
+ *     tags:
+ *       - ArtistGroups
+ *     summary: Get artist groups resource
+ *     responses:
+ *       200:
+ *         description: Artist groups resource
+ */
+router.use('/artist-groups', artistGroupRoute);
 
 export default router;
